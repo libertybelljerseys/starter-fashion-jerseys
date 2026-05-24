@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Starter Fashion Jerseys (90's)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper:       #1e1e1e;
+      --paper-dark:  #161616;
+      --ink:         #e8e8e8;
+      --ink-mid:     #c0c0c0;
+      --rule:        #e8572a;
+      --accent:      #e8572a;
+      --muted:       #888888;
+      --border:      #333333;
+      --card-bg:     #252525;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 16px; }
+
+    body {
+      background-color: var(--paper);
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+      color: var(--ink);
+      font-family: 'Spectral', Georgia, serif;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+
+    .site-header {
+      padding: 48px 40px 0;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .header-rule {
+      height: 3px;
+      background: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .header-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .site-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      line-height: 0.92;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+
+    .site-title span {
+      color: var(--accent);
+    }
+
+    .header-meta {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
+      margin-bottom: 0;
+      display: flex;
+      gap: 32px;
+      align-items: baseline;
+      flex-wrap: wrap;
+    }
+
+    .header-note {
+      font-family: 'Spectral', serif;
+      font-style: italic;
+      font-size: 0.875rem;
+      color: var(--muted);
+      flex: 1;
+      min-width: 220px;
+    }
+
+.count-badge {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    /* ── Gallery ── */
+
+    .gallery-section {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 32px 40px 64px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 2px;
+    }
+
+    .gallery-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      cursor: zoom-in;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.15s;
+    }
+
+    .gallery-item:hover {
+      border-color: var(--accent);
+      z-index: 1;
+    }
+
+    .gallery-item:hover .item-caption {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .gallery-item:hover .item-num {
+      color: #fff;
+    }
+
+    .img-wrap {
+      aspect-ratio: 1;
+      overflow: hidden;
+      background: var(--paper-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover .img-wrap img {
+      transform: scale(1.04);
+    }
+
+    .item-caption {
+      padding: 6px 8px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      background: var(--card-bg);
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .item-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.58rem;
+      font-weight: 500;
+      color: var(--muted);
+      flex-shrink: 0;
+      transition: color 0.15s;
+    }
+
+    .item-name {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.58rem;
+      color: var(--ink-mid);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-transform: lowercase;
+      transition: color 0.15s;
+    }
+
+    .gallery-item:hover .item-name {
+      color: #fff;
+    }
+
+    /* ── Lightbox ── */
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(20, 18, 16, 0.94);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox-inner {
+      position: relative;
+      max-width: min(90vw, 900px);
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .lightbox-inner img {
+      max-width: 100%;
+      max-height: calc(90vh - 60px);
+      object-fit: contain;
+      display: block;
+      box-shadow: 0 20px 80px rgba(0,0,0,0.6);
+    }
+
+    .lightbox-caption {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.08em;
+      text-align: center;
+    }
+
+    .lightbox-close {
+      position: fixed;
+      top: 20px;
+      right: 24px;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.6);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      padding: 8px 12px;
+      transition: color 0.15s;
+    }
+    .lightbox-close:hover { color: #fff; }
+
+    .lightbox-nav {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.5);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 16px 20px;
+      transition: color 0.15s;
+      z-index: 1001;
+    }
+    .lightbox-nav:hover { color: #fff; }
+    .lightbox-prev { left: 8px; }
+    .lightbox-next { right: 8px; }
+
+    /* ── Footer ── */
+
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding: 20px 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .footer-text {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    .footer-link {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      text-decoration: none;
+    }
+    .footer-link:hover { color: var(--ink); }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 28px 20px 0; }
+      .gallery-section { padding: 20px 20px 48px; }
+      .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+      .site-footer { padding: 16px 20px; }
+      .header-meta { gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-rule"></div>
+    <p class="header-label">Reference Archive &mdash; Officially Licensed</p>
+    <h1 class="site-title">Starter Fashion<br>Jerseys <span>(90's)</span></h1>
+    <div class="header-meta">
+      <p class="header-note">
+        Archival reference collection of 90s Starter officially-licensed fashion jerseys (non-on-ice designs).
+        Not Liberty Bell Jerseys' own inventory &mdash; for reference only.
+      </p>
+      <span class="count-badge">37 items</span>
+    </div>
+  </header>
+
+  <main class="gallery-section">
+    <div class="gallery-grid" id="gallery"></div>
+  </main>
+
+  <footer class="site-footer">
+    <span class="footer-text">Starter Fashion Jerseys Archive</span>
+    <a class="footer-link" href="https://libertybelljerseys.com" target="_blank" rel="noopener">libertybelljerseys.com</a>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+    <button class="lightbox-close" id="lb-close">ESC / CLOSE</button>
+    <button class="lightbox-nav lightbox-prev" id="lb-prev" aria-label="Previous">&#8592;</button>
+    <button class="lightbox-nav lightbox-next" id="lb-next" aria-label="Next">&#8594;</button>
+    <div class="lightbox-inner">
+      <img id="lb-img" src="" alt="">
+      <p class="lightbox-caption" id="lb-caption"></p>
+    </div>
+  </div>
+
+  <script>
+    const images = [
+      '01-starter.png',
+      '02-starter.jpg',
+      '03-starter.png',
+      '04-sabres-red.jpg',
+      '05-starter.jpg',
+      '06-blackhawks-road-black.png',
+      '07-starter.png',
+      '07b-blackhawks-actual.png',
+      '08-blackhawks-gold.jpg',
+      '09-starter.png',
+      '10-avalanche-light-blue.jpg',
+      '11-avalanche-black.jpg',
+      '12-starter.png',
+      '13-starter.png',
+      '14-redwings-blue.jpg',
+      '15-redwings-black.png',
+      '16-redwings-grey.png',
+      '17-starter.jpg',
+      '18-panthers-gold.jpg',
+      '19-starter.png',
+      '19b-ebay.jpg',
+      '20-starter.png',
+      '21-starter.png',
+      '22-rangers-black.jpg',
+      '23-rangers-home-red.jpg',
+      '24-rangers-alt-red.png',
+      '26-starter.png',
+      '27-flyers-light-blue.png',
+      '28-starter.jpg',
+      '29-starter.png',
+      '30-penguins-blue.png',
+      '31-starter.png',
+      '32-starter.png',
+      '33-blues-black.jpg',
+      '34-starter.png',
+      '35-starter.png',
+      '36-starter.png'
+    ];
+
+    function parseFilename(fn) {
+      const base = fn.replace(/\.[^.]+$/, '');
+      const num = base.match(/^[\d]+[a-z]?/)?.[0] ?? '';
+      const label = base.replace(/^[\d]+[a-z]?-?/, '').replace(/-/g, ' ') || 'starter';
+      return { num, label };
+    }
+
+    const gallery = document.getElementById('gallery');
+
+    images.forEach((filename, idx) => {
+      const { num, label } = parseFilename(filename);
+      const item = document.createElement('div');
+      item.className = 'gallery-item';
+      item.setAttribute('data-idx', idx);
+      item.innerHTML = `
+        <div class="img-wrap">
+          <img src="images/${filename}" alt="${label}" loading="lazy">
+        </div>
+        <div class="item-caption">
+          <span class="item-num">${num || String(idx+1).padStart(2,'0')}</span>
+          <span class="item-name">${label}</span>
+        </div>`;
+      item.addEventListener('click', () => openLightbox(idx));
+      gallery.appendChild(item);
+    });
+
+    // Lightbox
+    let currentIdx = 0;
+    const lightbox = document.getElementById('lightbox');
+    const lbImg    = document.getElementById('lb-img');
+    const lbCap    = document.getElementById('lb-caption');
+
+    function openLightbox(idx) {
+      currentIdx = idx;
+      showImage(idx);
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function showImage(idx) {
+      const fn = images[idx];
+      const { num, label } = parseFilename(fn);
+      lbImg.src = `images/${fn}`;
+      lbImg.alt = label;
+      lbCap.textContent = `${num ? num + ' — ' : ''}${label}`;
+      currentIdx = idx;
+    }
+
+    function prev() { showImage((currentIdx - 1 + images.length) % images.length); }
+    function next() { showImage((currentIdx + 1) % images.length); }
+
+    document.getElementById('lb-close').addEventListener('click', closeLightbox);
+    document.getElementById('lb-prev').addEventListener('click', (e) => { e.stopPropagation(); prev(); });
+    document.getElementById('lb-next').addEventListener('click', (e) => { e.stopPropagation(); next(); });
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') prev();
+      if (e.key === 'ArrowRight') next();
+    });
+  </script>
+</body>
+</html>
