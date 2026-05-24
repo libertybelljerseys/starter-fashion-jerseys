@@ -416,16 +416,20 @@
     const lbImg    = document.getElementById('lb-img');
     const lbCap    = document.getElementById('lb-caption');
 
+    const slug = fn => fn.replace(/\.[^.]+$/, '');
+
     function openLightbox(idx) {
       currentIdx = idx;
       showImage(idx);
       lightbox.classList.add('open');
       document.body.style.overflow = 'hidden';
+      history.replaceState(null, '', '#' + slug(images[idx].file));
     }
 
     function closeLightbox() {
       lightbox.classList.remove('open');
       document.body.style.overflow = '';
+      history.replaceState(null, '', location.pathname);
     }
 
     function showImage(idx) {
@@ -434,6 +438,7 @@
       lbImg.alt = team;
       lbCap.textContent = [team, desc].filter(Boolean).join(' — ');
       currentIdx = idx;
+      history.replaceState(null, '', '#' + slug(file));
     }
 
     function prev() { showImage((currentIdx - 1 + images.length) % images.length); }
@@ -453,6 +458,10 @@
       if (e.key === 'ArrowLeft') prev();
       if (e.key === 'ArrowRight') next();
     });
+
+    // Open directly to a linked image on page load
+    const hashIdx = images.findIndex(img => slug(img.file) === location.hash.slice(1));
+    if (hashIdx !== -1) openLightbox(hashIdx);
   </script>
 </body>
 </html>
