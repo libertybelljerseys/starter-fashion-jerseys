@@ -154,38 +154,35 @@
     }
 
     .item-caption {
-      padding: 6px 8px;
+      padding: 7px 8px;
       border-top: 1px solid var(--border);
-      display: flex;
-      align-items: baseline;
-      gap: 6px;
       background: var(--card-bg);
-      transition: background 0.15s, color 0.15s;
-    }
-
-    .item-num {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.58rem;
-      font-weight: 500;
-      color: var(--muted);
-      flex-shrink: 0;
-      transition: color 0.15s;
+      transition: background 0.15s;
     }
 
     .item-name {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.58rem;
+      font-size: 0.6rem;
       color: var(--ink-mid);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      text-transform: lowercase;
       transition: color 0.15s;
     }
 
-    .gallery-item:hover .item-name {
-      color: #fff;
+    .item-desc {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.55rem;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 2px;
+      transition: color 0.15s;
     }
+
+    .gallery-item:hover .item-name,
+    .gallery-item:hover .item-desc { color: #fff; }
 
     /* ── Lightbox ── */
 
@@ -305,14 +302,13 @@
 
   <header class="site-header">
     <div class="header-rule"></div>
-    <p class="header-label">Reference Archive &mdash; Officially Licensed</p>
+    <p class="header-label">Reference Archive - Officially Licensed</p>
     <h1 class="site-title">Starter Fashion<br>Jerseys <span>(90's)</span></h1>
     <div class="header-meta">
       <p class="header-note">
         Archival reference collection of 90s Starter officially-licensed fashion jerseys (non-on-ice designs).
-        Not Liberty Bell Jerseys' own inventory &mdash; for reference only.
+        <br>Not Liberty Bell Jerseys' own inventory. For reference only.
       </p>
-      <span class="count-badge">37 items</span>
     </div>
   </header>
 
@@ -338,66 +334,77 @@
 
   <script>
     const images = [
-      '01-starter.png',
-      '02-starter.jpg',
-      '03-starter.png',
-      '04-sabres-red.jpg',
-      '05-starter.jpg',
-      '06-blackhawks-road-black.png',
-      '07-starter.png',
-      '07b-blackhawks-actual.png',
-      '08-blackhawks-gold.jpg',
-      '09-starter.png',
-      '10-avalanche-light-blue.jpg',
-      '11-avalanche-black.jpg',
-      '12-starter.png',
-      '13-starter.png',
-      '14-redwings-blue.jpg',
-      '15-redwings-black.png',
-      '16-redwings-grey.png',
-      '17-starter.jpg',
-      '18-panthers-gold.jpg',
-      '19-starter.png',
-      '19b-ebay.jpg',
-      '20-starter.png',
-      '21-starter.png',
-      '22-rangers-black.jpg',
-      '23-rangers-home-red.jpg',
-      '24-rangers-alt-red.png',
-      '26-starter.png',
-      '27-flyers-light-blue.png',
-      '28-starter.jpg',
-      '29-starter.png',
-      '30-penguins-blue.png',
-      '31-starter.png',
-      '32-starter.png',
-      '33-blues-black.jpg',
-      '34-starter.png',
-      '35-starter.png',
-      '36-starter.png'
+      // Anaheim Ducks
+      { file: 'ANA-black.jpg',           team: 'Anaheim Ducks',        desc: 'Black version of their home' },
+      { file: 'ANA-alt-yellow.png',      team: 'Anaheim Ducks',        desc: 'Yellow version of their alternate' },
+      // Buffalo Sabres
+      { file: 'BUF-red.jpg',             team: 'Buffalo Sabres',       desc: 'Red colorway' },
+      // Calgary Flames
+      { file: 'CGY-white.jpg',           team: 'Calgary Flames',       desc: 'White Blasty' },
+      // Chicago Blackhawks
+      { file: 'CHI-road-black.png',      team: 'Chicago Blackhawks',   desc: 'Road — black' },
+      { file: 'CHI-home-black.png',      team: 'Chicago Blackhawks',   desc: 'Black version of Home' },
+      { file: 'CHI-gold.jpg',            team: 'Chicago Blackhawks',   desc: 'Gold colorway' },
+      { file: 'CHI-powder-blue.png',     team: 'Chicago Blackhawks',   desc: 'Powder Blue Alternate Design' },
+      // Colorado Avalanche
+      { file: 'COL-light-blue.jpg',      team: 'Colorado Avalanche',   desc: 'Light blue colorway' },
+      { file: 'COL-black.jpg',           team: 'Colorado Avalanche',   desc: 'Black colorway' },
+      // Dallas Stars
+      { file: 'DAL-green.png',           team: 'Dallas Stars',         desc: 'Green Alternate colorway' },
+      { file: 'DAL-blue-accent.png',     team: 'Dallas Stars',         desc: 'Blue Accent' },
+      // Detroit Red Wings
+      { file: 'DET-blue.jpg',            team: 'Detroit Red Wings',    desc: 'Blue colorway' },
+      { file: 'DET-black.png',           team: 'Detroit Red Wings',    desc: 'Black colorway' },
+      { file: 'DET-grey.png',            team: 'Detroit Red Wings',    desc: 'Grey colorway' },
+      // Florida Panthers
+      { file: 'FLA-black.jpg',           team: 'Florida Panthers',     desc: 'Black colorway' },
+      { file: 'FLA-gold.jpg',            team: 'Florida Panthers',     desc: 'Gold colorway' },
+      // Montreal Canadiens
+      { file: 'MTL-black.png',           team: 'Montreal Canadiens',   desc: 'Black colorway' },
+      // Nashville Predators
+      { file: 'NSH-black.jpg',           team: 'Nashville Predators',  desc: 'Black colorway' },
+      // New Jersey Devils
+      { file: 'NJD-black.png',           team: 'New Jersey Devils',    desc: 'Black colorway' },
+      // New York Islanders
+      { file: 'NYI-black.png',           team: 'New York Islanders',   desc: 'Black colorway' },
+      // New York Rangers
+      { file: 'NYR-black.jpg',           team: 'New York Rangers',     desc: 'Black colorway' },
+      { file: 'NYR-home-red.jpg',        team: 'New York Rangers',     desc: 'Home — red' },
+      { file: 'NYR-alt-red.png',         team: 'New York Rangers',     desc: 'Alt — red' },
+      // Philadelphia Flyers
+      { file: 'PHI-alt-neck.png',        team: 'Philadelphia Flyers',  desc: 'Alternate neck style' },
+      { file: 'PHI-black-reverse.png',   team: 'Philadelphia Flyers',  desc: 'Black reverse colorway' },
+      { file: 'PHI-light-blue.png',      team: 'Philadelphia Flyers',  desc: 'Light blue colorway' },
+      { file: 'PHI-teal.jpg',            team: 'Philadelphia Flyers',  desc: 'Teal colorway' },
+      // Phoenix Coyotes
+      { file: 'PHX-peyote-alt.png',      team: 'Phoenix Coyotes',      desc: 'Peyote Alternate with extra purple' },
+      // Pittsburgh Penguins
+      { file: 'PIT-black.png',           team: 'Pittsburgh Penguins',  desc: 'Black colorway' },
+      { file: 'PIT-blue.png',            team: 'Pittsburgh Penguins',  desc: 'Blue colorway' },
+      { file: 'PIT-red.png',             team: 'Pittsburgh Penguins',  desc: 'Red colorway' },
+      // San Jose Sharks
+      { file: 'SJS-black.png',           team: 'San Jose Sharks',      desc: 'Black colorway' },
+      // St. Louis Blues
+      { file: 'STL-black.jpg',           team: 'St. Louis Blues',      desc: 'Black colorway' },
+      { file: 'STL-grey.png',            team: 'St. Louis Blues',      desc: 'Grey colorway' },
+      // Vancouver Canucks
+      { file: 'VAN-royal-blue.png',      team: 'Vancouver Canucks',    desc: 'Royal blue colorway' },
+      // Washington Capitals
+      { file: 'WSH-black.png',           team: 'Washington Capitals',  desc: 'Black colorway' },
     ];
-
-    function parseFilename(fn) {
-      const base = fn.replace(/\.[^.]+$/, '');
-      const num = base.match(/^[\d]+[a-z]?/)?.[0] ?? '';
-      const label = base.replace(/^[\d]+[a-z]?-?/, '').replace(/-/g, ' ') || 'starter';
-      return { num, label };
-    }
 
     const gallery = document.getElementById('gallery');
 
-    images.forEach((filename, idx) => {
-      const { num, label } = parseFilename(filename);
+    images.forEach(({ file, team, desc }, idx) => {
       const item = document.createElement('div');
       item.className = 'gallery-item';
-      item.setAttribute('data-idx', idx);
       item.innerHTML = `
         <div class="img-wrap">
-          <img src="images/${filename}" alt="${label}" loading="lazy">
+          <img src="images/${file}" alt="${team}" loading="lazy">
         </div>
         <div class="item-caption">
-          <span class="item-num">${num || String(idx+1).padStart(2,'0')}</span>
-          <span class="item-name">${label}</span>
+          <span class="item-name">${team}</span>
+          ${desc ? `<div class="item-desc">${desc}</div>` : ''}
         </div>`;
       item.addEventListener('click', () => openLightbox(idx));
       gallery.appendChild(item);
@@ -422,11 +429,10 @@
     }
 
     function showImage(idx) {
-      const fn = images[idx];
-      const { num, label } = parseFilename(fn);
-      lbImg.src = `images/${fn}`;
-      lbImg.alt = label;
-      lbCap.textContent = `${num ? num + ' — ' : ''}${label}`;
+      const { file, team, desc } = images[idx];
+      lbImg.src = `images/${file}`;
+      lbImg.alt = team;
+      lbCap.textContent = [team, desc].filter(Boolean).join(' — ');
       currentIdx = idx;
     }
 
