@@ -194,7 +194,12 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.3s ease;
+      opacity: 0;
+      transition: transform 0.3s ease, opacity 0.4s ease;
+    }
+
+    .img-wrap img.loaded {
+      opacity: 1;
     }
 
     .gallery-item:hover .img-wrap img {
@@ -508,7 +513,7 @@
         item.className = 'gallery-item';
         item.innerHTML = `
           <div class="img-wrap">
-            <img src="images/thumbs/${file}" alt="${team}" loading="lazy">
+            <img src="images/thumbs/${file}" alt="${team}" loading="lazy" decoding="async" onload="this.classList.add('loaded')">
           </div>
           <div class="item-caption">
             <span class="item-name">${team}</span>
