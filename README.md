@@ -29,12 +29,19 @@ Know of a Starter fashion jersey that's missing? Contributions welcome.
 ### Via GitHub
 
 1. Fork this repo
-2. Add your image to `/images/` using the naming schema above
-3. Add an entry to the `images` array in `index.html`, keeping it sorted alphabetically by team:
-   ```js
-   { file: 'PHI-teal.jpg', team: 'Philadelphia Flyers', desc: 'Teal colorway' },
+2. Add your image to `/images/jerseys/` using the naming schema above
+3. Generate its thumbnail (requires [ImageMagick](https://imagemagick.org)):
    ```
-4. Open a pull request
+   magick images/jerseys/PHI-teal.jpg -resize "500x500>" images/thumbs/jerseys/PHI-teal.jpg
+   ```
+4. Add an entry to the `jerseys` array in `index.html`, keeping it sorted alphabetically by team:
+   ```js
+   { file: 'jerseys/PHI-teal.jpg', team: 'Philadelphia Flyers', desc: 'Teal colorway' },
+   ```
+5. Open a pull request
+
+Sublimation prints, all-overs, and other novelty items go in `/images/misc/` instead — see
+`CLAUDE.md` for that schema and array.
 
 ### Via Email
 
